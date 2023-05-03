@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:lang="#{lang}">
+<script th:src="@{/static/js/common.js}" defer></script>
+<script th:src="@{/static/js/users.js}" defer></script>
+
+<th:block th:replace="~{layout/main::page(title=#{footer.rel.users},appMain=~{::appMain})}">
+    <appMain>
+        <div class="jumbotron pt-4">
+            <div class="container">
+                <h3 class="text-center" th:text="#{footer.rel.users}"></h3>
+                <button th:onclick="add()" class="btn btn-primary" th:text="#{btn-add}"></button>
+                <table class="table table-striped" id="datatable">
+                    <thead>
+                    <tr>
+                        <th th:text="#{atr.first-name}"></th>
+                        <th th:text="#{atr.last-name}"></th>
+                        <th th:text="#{atr.display-name}"></th>
+                        <th>Email</th>
+                        <th th:text="#{atr.roles}"></th>
+                        <th th:text="#{atr.registered}"></th>
+                        <th th:text="#{atr.active}"></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" id="editRow">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalTitle"></h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" onclick="closeNoty()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="detailsForm">
+                            <input type="hidden" id="id" name="id">
+
+                            <div class="form-group">
+                                <label for="firstName" class="col-form-label" th:text="#{atr.first-name}"></label>
+                                <input type="text" class="form-control" id="firstName" name="firstName"
+                                       th:placeholder="#{atr.first-name}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName" class="col-form-label" th:text="#{atr.last-name}"></label>
+                                <input type="text" class="form-control" id="lastName" name="lastName"
+                                       th:placeholder="#{atr.last-name}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="displayName" class="col-form-label" th:text="#{atr.display-name}"></label>
+                                <input type="text" class="form-control" id="displayName" name="displayName"
+                                       th:placeholder="#{atr.display-name}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                       placeholder="Email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="col-form-label" th:text="#{login.password}"></label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                       th:placeholder="#{login.password}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeNoty()" th:text="#{btn-cancel}">
+                            <span class="fa fa-close"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="save()" th:text="#{btn-save}">
+                            <span class="fa fa-check"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </appMain>
+</th:block>

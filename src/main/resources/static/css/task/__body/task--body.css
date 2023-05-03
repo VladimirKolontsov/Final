@@ -1,0 +1,4 @@
+.task--body:hover {
+  background-color: rgb(255, 116, 0);
+  cursor: pointer;
+}

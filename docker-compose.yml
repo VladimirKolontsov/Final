@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  jira:
+    image: jira-app
+    container_name: jira
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      # Для смены места поиска JAR файла проекта поменяйте строчки
+      dockerfile: Dockerfile
+#      dockerfile: Dockerfile-local-build
+    depends_on:
+      - nginx
+      - db
+    env_file:
+      - config/jira-app-prod.env
+  nginx:
+    container_name: nginx
+    image: nginx:1.13
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/nginx.conf
+  db:
+    image: postgres:15.2
+    container_name: db
+    env_file:
+      - config/postgresql-prod.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U jira -d jira" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+volumes:
+  pgdata:
+    name: pgdata

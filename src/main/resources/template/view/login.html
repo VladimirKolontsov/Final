@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="#{lang}">
+
+<th:block th:replace="~{layout/main::page(title=#{login.window-title},appMain=~{::appMain})}">
+    <appMain>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-12 col-md-8 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-3 p-md-5 text-center">
+                        <h3 class="mb-3" th:text="#{login.sign-in}"></h3>
+                        <div th:if="${param.error}">
+                            <p class="alert alert-danger col-12 p-2 text-center" th:text="#{login.error-message}"></p>
+                        </div>
+                        <form action="/view/login" method="post" id="loginForm" name="loginForm">
+                            <div class="form-outline mb-4">
+                                <input type="text" name="username" class="form-control" required placeholder="E-mail"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="password" name="password" class="form-control" required
+                                       th:placeholder="#{login.password}"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-7 col-md-6 my-auto">
+                                    <a href="/view/unauth/forgot-password" th:text="#{login.forgot-password}"></a>
+                                </div>
+                                <div class="col-5 col-md-6 d-grid gap-2">
+                                    <button class="btn btn-success btn-lg" type="submit" name="btnSubmit" th:text="#{login.sign-in}"></button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row mt-4">
+                            <div class="col-5">
+                                <hr>
+                            </div>
+                            <div class="col-2" th:text="#{login.or}">
+                            </div>
+                            <div class="col-5">
+                                <hr>
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-4" th:text="#{login.social.text}"></p>
+                        <a href="/oauth2/authorization/google" type="button"
+                           class="btn-oauth btn btn-secondary btn-lg me-2">
+                            <i class="fa-brands fa-google"></i>
+                        </a>
+                        <a href="/oauth2/authorization/github" type="button"
+                           class="btn-oauth btn btn-dark btn-lg me-2">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="/oauth2/authorization/gitlab" type="button"
+                           class="btn-oauth btn btn-warning btn-lg">
+                            <i class="fa-brands fa-gitlab"></i>
+                        </a>
+                        <p class="mt-3 mb-2 mb-md-0" style="font-size:0.8em">
+                            [[#{login.text.new}]]
+                            <a href="/ui/register" th:text="#{login.create-account}"></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </appMain>
+</th:block>
+

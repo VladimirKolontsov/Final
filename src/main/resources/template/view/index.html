@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="#{lang}">
+<!--/*@thymesVar id="authUser" type="com.javarush.jira.login.AuthUser"*/-->
+<!--/*@thymesVar id="taskMap" type="java.util.Map<com.javarush.jira.bugtracking.to.SprintTo, java.util.List<com.javarush.jira.bugtracking.to.TaskTo>>"*/-->
+<script th:src="@{/static/js/common.js}" defer></script>
+<script th:src="@{/static/js/dashboard.js}" defer></script>
+<th:block th:replace="~{layout/main::page(title=#{index.window-title},appMain=~{::appMain})}">
+    <appMain>
+        <h1 th:text="#{index.title}"/>
+        <div class="container text-center">
+            <div class="row " th:each="entry: ${taskMap}">
+                <div class="card">
+                    <div class="card-body" th:with="sprint=${entry.key}, tasks=${entry.value}">
+                        <h5 class="card-title" th:text="|#{index.sprint-title}: ${sprint.title}|"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
+                            th:text="|#{index.sprint-status}: ${sprint.statusCode}|"></h6>
+                        <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
+                            th:text="|#{index.sprint-deadline}: ${#temporals.format(sprint.endpoint,'dd.MM.yyyy')}|"></h6>
+                        <div class="row">
+                            <div class="col" th:each="task: ${tasks}">
+                                <div class="card">
+                                    <div th:class="${task.enabled ? 'task-active card-body task--body' : 'task-disabled card-body task--body'}"
+                                         th:value="${task.id}">
+                                        <h5 class="card-title mb-2 text-muted" style="text-align: left; "
+                                            th:text="${task.title}"></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
+                                            th:text="${task.description}"></h6>
+                                        <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
+                                            th:text="${task.priorityCode}"></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" tabindex="-1" id="editRow">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalTitle"></h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" onclick="closeNoty()">&times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="detailsForm">
+                            <input type="hidden" id="id" name="id">
+                            <input th:type="hidden" id="sprint">
+                            <input th:type="hidden" id="project">
+                            <div class="form-group">
+                                <label for="statusCode" class="col-form-label" th:text="#{task.status}"></label>
+                                <select class="form-control" id="statusCode" name="statusCode">
+                                    <option th:each="ref: ${refs.get('TASK_STATUS')}"
+                                            th:value="${ref.code}"
+                                            th:text="${ref.title}"
+                                            th:placeholder="#{task.status}"
+                                    ></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="title" class="col-form-label" th:text="#{task.title}"></label>
+                                <input type="text" class="form-control" id="title" name="title"
+                                       th:placeholder="#{task.title}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description" class="col-fo  rm-label"
+                                       th:text="#{task.description}"></label>
+                                <textarea type="text" class="form-control" id="description" name="description"
+                                          th:placeholder="#{task.description}">
+                                </textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="typeCode" class="col-form-label"
+                                       th:text="#{task.type-code}"></label>
+                                <select type="text" class="form-control" id="typeCode" name="typeCode">
+                                    <option th:each="ref: ${refs.get('TASK')}"
+                                            th:value="${ref.code}"
+                                            th:text="${ref.title}"
+                                            th:placeholder="#{task.type-code}"
+                                    ></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="priorityCode" class="col-form-label"
+                                       th:text="#{task.priority-code}"></label>
+                                <select type="text" class="form-control" id="priorityCode" name="priorityCode">
+                                    <option th:each="ref: ${refs.get('PRIORITY')}"
+                                            th:value="${ref.code}"
+                                            th:text="${ref.title}"
+                                            th:placeholder="#{task.priority-code}"
+                                    ></option>
+                                </select>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="estimate" class="col-form-label" th:text="#{task.estimate}"></label>
+                                <input type="number" class="form-control" id="estimate" name="estimate"
+                                       th:placeholder="#{task.estimate}">
+                            </div>
+                            <div class="form-group">
+                                <label for="storyPoints" class="col-form-label"
+                                       th:text="#{task.storyPoints}"></label>
+                                <input type="number" class="form-control" id="storyPoints" name="storyPoints"
+                                       th:placeholder="#{task.storyPoints}" min="1" th:default="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="enabled" class="col-form-label" th:text="#{task.enabled}"></label>
+                                <input type="checkbox" class="checkbox-value" id="enabled" name="enabled"
+                                       value="true"
+                                       th:placeholder="#{task.enabled}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeNoty()"
+                                th:text="#{btn-cancel}">
+                            <span class="fa fa-close"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="sendDashboardForm()" th:text="#{btn-save}">
+                            <span class="fa fa-check"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </appMain>
+</th:block>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title th:text="#{email-templates.confirmation}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p th:text="#{email-templates.hello} + ${user.firstName} + '.'"/>
+<p th:text="#{email-templates.message}"></p>
+<a th:href="${confirmationUrl}" th:text="#{email-templates.confirm-email}"></a>
+</body>
+</html>

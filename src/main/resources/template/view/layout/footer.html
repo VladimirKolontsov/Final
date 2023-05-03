@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="#{lang}">
+
+<div th:fragment="footer">
+    <footer class="text-center text-lg-start text-white footer">
+        <section>
+            <div class="container text-center text-md-start">
+                <div class="row ms-0 ms-md-5">
+                    <div class="col-md-4 col-xl-2 mb-4 mt-4">
+                        <h6 class="fw-bold mt-2 mt-md-0 mb-4" th:text="#{footer.h6.learn}"></h6>
+
+                        <p><a href="#" class="footer-href" th:text="#{footer.ref.program}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.ref.java}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.ref.help-with-task}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.ref.price}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.ref.game-projects}"></a></p>
+                    </div>
+                    <div class="col-md-4 col-xl-2 mb-4 mt-0 mt-md-4">
+                        <h6 class="fw-bold mb-4" th:text="#{footer.h6.community}"></h6>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.users}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.articles}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.forum}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.chat}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.success-stories}"></a></p>
+                    </div>
+                    <div class="col-md-4 col-xl-2 mb-4 mt-0 mt-md-4">
+                        <h6 class="fw-bold mb-4" th:text="#{footer.h6.company}"></h6>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.about}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.contacts}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.reviews}"></a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.faq}">FAQ</a></p>
+                        <p><a href="#" class="footer-href" th:text="#{footer.rel.support}"></a></p>
+                    </div>
+
+                    <div class="col-xl-5 mb-4 mt-0 mt-md-4">
+                        <img src="/static/images/logo/jr.svg" alt="JavaRush" class="mb-3">
+                        <p th:text="#{footer.large.text}"></p>
+                        <h6 th:text="#{footer.h6.follow-us}"></h6>
+                        <div>
+                            <a href="#" type="button" class="btn btn-sm btn-outline-light me-2">
+                                <i class="fab fa-facebook-f pe-1"></i>
+                            </a>
+                            <a href="#" type="button" class="btn btn-sm btn-outline-light me-2">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" type="button" class="btn btn-sm btn-outline-light me-2">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                            <a href="#" type="button" class="btn btn-sm btn-outline-light me-2">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" type="button" class="btn btn-sm btn-outline-light me-2">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" type="button" class="btn btn-sm btn-outline-light">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="text-center pb-4" th:text="#{footer.copyright}"></div>
+    </footer>
+</div>
+</html>

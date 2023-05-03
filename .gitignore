@@ -1,0 +1,16 @@
+.idea
+out
+target
+*.iml
+logs
+*.patch
+
+
+/src/main/resources/secret-eviroment-with-data.properties
+/.jpb/
+/config/_application-prod.yaml
+/config/_prod-compouse-env.yml
+/config/postgresql-prod.env
+/config/jira-app-prod.env
+/config/secret-eviroment-with-data.properties
+/config/_application-prod_DB.yaml
