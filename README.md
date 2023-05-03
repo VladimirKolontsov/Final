@@ -8,6 +8,7 @@
 docker compose up
 ```  
 
+
 Для изменения режима DEV PROD надо изменить строку 12 в [Dockerfile](Dockerfile)
 
 Логин и пароль для входа:
